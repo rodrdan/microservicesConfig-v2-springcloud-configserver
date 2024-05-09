@@ -49,6 +49,7 @@ public class AccountsController {
     @Autowired
     private Environment environment;
 
+    // reading properties method n. 3
     @Autowired
     private AccountsContactInfoDto accountsContactInfoDto;
 
@@ -176,6 +177,7 @@ public class AccountsController {
                 .status(HttpStatus.OK)
                 .body(buildVersion);
     }
+
 
     // reading properties using Environment interface field (from local environment variables)
     @Operation(
