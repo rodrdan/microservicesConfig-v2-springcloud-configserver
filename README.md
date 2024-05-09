@@ -72,7 +72,7 @@ Creating Docker images
         - http://localhost:8071/actuator/health/liveness
         - http://localhost:8071/actuator/health/readiness
 4. Config-server docker-compose.yml -> Set-up healthchecks + dependencies of containers
-5. 
+5. Create images using mvn compile jib:dockerBuild
 
 
 
