@@ -233,10 +233,10 @@ public class LoanController {
             )}
     )
     @GetMapping("/contact-info")
-    public ResponseEntity<Map<String, String>> getContactInfo() {
+    public ResponseEntity<LoanContactInfoDto> getContactInfo() {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(loanContactInfoDto.contactDetails());
+                .body(loanContactInfoDto);
     }
 
 

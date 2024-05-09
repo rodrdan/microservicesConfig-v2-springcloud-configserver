@@ -41,5 +41,24 @@ Adding property values encryption
     - http://localhost:8071/encrypt (encrypts value in body by using key)
     - http://localhost:8071/decrypt (decrypts encrypted value in body to plaintext)
 
+Adding refresh configurations (without app restart)
+
+1. Using actuator path:
+   - records DTOs -> class DTOs
+   - application.yml -> add management: endpoints...
+   - change property value in GitHub repo
+   - invoke new endpoint http://localhost:8080/actuator/refresh
+   - each change means invoking endpoint again (= **NOT RECOMMENDED**)
+2. Using Spring Cloud Bus + message broker (RabbitMQ):
+  - docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.13-management
+  - MS pom.xml -> spring-cloud-starter-bus-amqp dep. + spring-boot-starter-actuator dep.
+  - MS application.yml -> add management: endpoints... + add rabbitmq: ...
+  - change property value in GitHub repo
+  - invoke new endpoint http://localhost:8080/actuator/busrefresh of ANY instance of ANY MS
+  - all changes are loaded in all MS (only need to invoke endpoint once = **RECOMMENDED**)
+3. 
+
+
+
 
    

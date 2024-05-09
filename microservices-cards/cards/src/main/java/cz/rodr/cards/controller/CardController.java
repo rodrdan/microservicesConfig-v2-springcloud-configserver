@@ -232,9 +232,9 @@ public class CardController {
             )}
     )
     @GetMapping("/contact-info")
-    public ResponseEntity<Map<String, String>> getContactInfo() {
+    public ResponseEntity<CardContactInfoDto> getContactInfo() {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(cardContactInfoDto.contactDetails());
+                .body(cardContactInfoDto);
     }
 }
