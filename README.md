@@ -5,8 +5,10 @@
 3. 
    1. How to read configurations - method 1 - from classpath
        - save properties files to a separate configserver project resource directory
-       - application.yml -> spring: profiles: active: native
+       - application.yml -> spring: profiles: active: native + search-locations: (**classpath** address)
    2. How to read configurations - method 2 - from file system location
+        - save properties files to a local directory, e.g. $USER\Documents\config
+        - application.yml -> spring: profiles: active: native + search-locations: (**file** address)
    3. How to read configurations - method 3 - from a GitHub repository
 4. build -> URLs to get properties based on profiles:
     - http://localhost:8071/accounts/default
