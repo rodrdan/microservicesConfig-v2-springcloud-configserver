@@ -63,6 +63,16 @@ Adding refresh configurations (without app restart)
     - change property value in GitHub repo
     - rest is done automatically - no need to invoke any endpoint manually
 
+Creating Docker images
+1. Create new docker-compose directories and files
+2. docker-compose.yml -> environment: SPRING_CONFIG_IMPORT: ... + SPRING_PROFILES_ACTIVE: ...
+3. Config-server application.yml -> Set-up liveness and readiness properties (endpoints) on config-server
+    endpoints:
+        - http://localhost:8071/actuator/health
+        - http://localhost:8071/actuator/health/liveness
+        - http://localhost:8071/actuator/health/readiness
+4. Config-server docker-compose.yml -> Set-up healthchecks + dependencies of containers
+5. 
 
 
 
