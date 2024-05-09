@@ -56,7 +56,13 @@ Adding refresh configurations (without app restart)
   - change property value in GitHub repo
   - invoke new endpoint http://localhost:8080/actuator/busrefresh of ANY instance of ANY MS
   - all changes are loaded in all MS (only need to invoke endpoint once = **RECOMMENDED**)
-3. 
+3. Using Spring Cloud Bus + Spring Cloud Monitor with webhook
+    - config-server pom.xml -> add spring-cloud-config-monitor dep.
+    - config-server application.yml -> add management: endpoints... + add rabbitmq: ...
+    - create a webhook in GitHub with monitoring URL
+    - change property value in GitHub repo
+    - rest is done automatically - no need to invoke any endpoint manually
+
 
 
 
