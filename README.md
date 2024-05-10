@@ -1,4 +1,4 @@
-Adding config-server
+**Adding config-server**
 
 1. Create a new project using Spring initializr with config server and actuator dependencies
 2. ConfigServerApplication.java -> add @EnableConfigServer
@@ -34,36 +34,37 @@ Adding config-server
        add spring: config: import (optional=app will still start even when config-server is not available)
 7. Configuration properties are now available to the controller and we can use MS REST endpoints.
    
-Adding property values encryption
+**Adding property values encryption**
 
 1. application.yml -> encrypt: key: (_add your key_)
 2. REST endpoints:
     - http://localhost:8071/encrypt (encrypts value in body by using key)
     - http://localhost:8071/decrypt (decrypts encrypted value in body to plaintext)
 
-Adding refresh configurations (without app restart)
+**Adding refresh configurations (without app restart)**
 
 1. Using actuator path:
    - records DTOs -> class DTOs
    - application.yml -> add management: endpoints...
    - change property value in GitHub repo
-   - invoke new endpoint http://localhost:8080/actuator/refresh
+   - invoke POST method on a new endpoint http://localhost:8071/actuator/refresh
    - each change means invoking endpoint again (= **NOT RECOMMENDED**)
 2. Using Spring Cloud Bus + message broker (RabbitMQ):
   - docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.13-management
   - MS pom.xml -> spring-cloud-starter-bus-amqp dep. + spring-boot-starter-actuator dep.
   - MS application.yml -> add management: endpoints... + add rabbitmq: ...
   - change property value in GitHub repo
-  - invoke new endpoint http://localhost:8080/actuator/busrefresh of ANY instance of ANY MS
+  - invoke POST method on a new endpoint http://localhost:8071/actuator/busrefresh of ANY instance of ANY MS
   - all changes are loaded in all MS (only need to invoke endpoint once = **RECOMMENDED**)
 3. Using Spring Cloud Bus + Spring Cloud Monitor with webhook
     - config-server pom.xml -> add spring-cloud-config-monitor dep.
     - config-server application.yml -> add management: endpoints... + add rabbitmq: ...
-    - create a webhook in GitHub with monitoring URL
+    - create a webhook in GitHub with monitoring URL (e.g. with https://hookdeck.com/)
     - change property value in GitHub repo
     - rest is done automatically - no need to invoke any endpoint manually
 
-Creating Docker images
+**Creating Docker images**
+
 1. Create new docker-compose directories and files
 2. docker-compose.yml -> environment: SPRING_CONFIG_IMPORT: ... + SPRING_PROFILES_ACTIVE: ...
 3. Config-server application.yml -> Set-up liveness and readiness properties (endpoints) on config-server
@@ -72,9 +73,5 @@ Creating Docker images
         - http://localhost:8071/actuator/health/liveness
         - http://localhost:8071/actuator/health/readiness
 4. Config-server docker-compose.yml -> Set-up healthchecks + dependencies of containers
-5. Create images using mvn compile jib:dockerBuild
-
-
-
-
-   
+5. Set-up common container configurations in a separate file
+5. Create images using mvn compile jib:dockerBuild   
